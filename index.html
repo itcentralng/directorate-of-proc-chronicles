@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Directorate of Procurement — Nigerian Army</title>
+<link rel="icon" href="assets/icons/app.ico" />
+<link rel="stylesheet" href="assets/fonts/fonts.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="stage-wrapper" id="stage-wrapper">
+    <div class="stage" id="stage">
+
+      <!-- ============ AMBIENT BACKGROUND ============ -->
+      <div class="app-bg" aria-hidden="true">
+        <div class="app-bg-glow"></div>
+        <div class="app-bg-grid"></div>
+      </div>
+
+      <!-- ============ PERSISTENT TOP BAR ============ -->
+      <header class="topbar hidden" id="topbar">
+        <button class="icon-btn" id="btn-home" aria-label="Home">
+          <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5" /><path d="M5.5 10v9a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-9" /><path d="M9.5 20v-6h5v6" /></svg>
+        </button>
+        <div class="topbar-brand">
+          <img class="topbar-crest" src="assets/icons/army.png" alt="" />
+          <div class="topbar-text">
+            <span class="topbar-kicker" data-i18n="appKicker"></span>
+            <span class="topbar-title" id="topbar-title" data-i18n="appTitle"></span>
+          </div>
+        </div>
+        <button class="kiosk-close" id="btn-close" title="Close" aria-label="Close">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+
+      <!-- ============ SCREENS ============ -->
+      <main id="screens">
+
+        <!-- ATTRACT -->
+        <section class="screen active" id="screen-attract">
+          <div class="wall" id="attract-wall" aria-hidden="true"></div>
+          <div class="attract-veil" aria-hidden="true"></div>
+          <div class="attract-content">
+            <div class="attract-crest-wrap">
+              <span class="attract-ring"></span>
+              <img class="attract-crest" src="assets/icons/army.png" alt="Nigerian Army" />
+            </div>
+            <p class="attract-kicker" data-i18n="appKicker"></p>
+            <h1 class="attract-title" data-i18n="appTitle"></h1>
+            <div class="attract-rule"><span></span><em data-i18n="appSubtitle"></em><span></span></div>
+            <p class="attract-years" id="attract-years"></p>
+            <button class="attract-cta" id="attract-cta">
+              <span class="attract-cta-pulse"></span>
+              <span data-i18n="touchToBegin"></span>
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- HOME / MAIN MENU -->
+        <section class="screen" id="screen-home">
+          <div class="home-header">
+            <p class="eyebrow" data-i18n="army"></p>
+            <h1 class="home-title" data-i18n="appTitle"></h1>
+            <p class="home-sub" data-i18n="appSubtitle"></p>
+          </div>
+          <nav class="menu-grid">
+            <button class="menu-tile" data-nav="brief">
+              <span class="menu-tile-art menu-tile-art--crest">
+                <img src="assets/icons/army.png" alt="" />
+              </span>
+              <span class="menu-tile-num">I</span>
+              <span class="menu-tile-text">
+                <span class="menu-tile-title" data-i18n="menuBrief"></span>
+                <span class="menu-tile-sub" data-i18n="menuBriefSub"></span>
+              </span>
+              <span class="menu-tile-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+            <button class="menu-tile menu-tile--feature" data-nav="chronicle">
+              <span class="menu-tile-art menu-tile-art--stack" id="menu-stack"></span>
+              <span class="menu-tile-num">II</span>
+              <span class="menu-tile-text">
+                <span class="menu-tile-title" data-i18n="menuChronicle"></span>
+                <span class="menu-tile-sub" data-i18n="menuChronicleSub"></span>
+              </span>
+              <span class="menu-tile-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+            <button class="menu-tile" data-nav="director">
+              <span class="menu-tile-art menu-tile-art--portrait"><img id="menu-director-photo" src="" alt="" /></span>
+              <span class="menu-tile-num">III</span>
+              <span class="menu-tile-text">
+                <span class="menu-tile-title" data-i18n="menuDirector"></span>
+                <span class="menu-tile-sub" data-i18n="menuDirectorSub"></span>
+              </span>
+              <span class="menu-tile-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+          </nav>
+        </section>
+
+        <!-- BRIEF -->
+        <section class="screen" id="screen-brief">
+          <div class="brief-wrap">
+            <aside class="brief-aside">
+              <div class="brief-seal">
+                <span class="brief-seal-ring"></span>
+                <img src="assets/icons/army.png" alt="" />
+              </div>
+              <p class="eyebrow" data-i18n="appKicker"></p>
+              <h2 class="brief-title" data-i18n="briefTitle"></h2>
+              <ol class="brief-index" id="brief-index"></ol>
+            </aside>
+            <article class="brief-main">
+              <div class="brief-page" id="brief-page">
+                <span class="brief-page-num" id="brief-page-num"></span>
+                <h3 class="brief-heading" id="brief-heading"></h3>
+                <p class="brief-text" id="brief-text"></p>
+              </div>
+              <div class="brief-controls">
+                <button class="round-btn" id="brief-prev" aria-label="Previous">
+                  <svg viewBox="0 0 24 24"><path d="M15 6 9 12l6 6"/></svg>
+                </button>
+                <div class="brief-progress" id="brief-progress"></div>
+                <button class="round-btn" id="brief-next" aria-label="Next">
+                  <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- CHRONICLE -->
+        <section class="screen" id="screen-chronicle">
+          <div class="chron-header">
+            <div>
+              <p class="eyebrow" id="chron-years"></p>
+              <h2 class="section-title" data-i18n="chronicleTitle"></h2>
+            </div>
+            <div class="chron-meta">
+              <span class="chron-count" id="chron-count"></span>
+              <span class="chron-hint" data-i18n="tapPortrait"></span>
+            </div>
+          </div>
+          <div class="chron-track-wrap">
+            <div class="chron-track" id="chron-track"></div>
+          </div>
+          <div class="ribbon">
+            <div class="ribbon-label" data-i18n="succession"></div>
+            <div class="ribbon-body">
+              <div class="ribbon-bar" id="ribbon-bar"></div>
+              <div class="ribbon-years" id="ribbon-years"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CURRENT DIRECTOR -->
+        <section class="screen" id="screen-director">
+          <div class="director-wrap">
+            <div class="director-portrait">
+              <div class="director-frame">
+                <img id="director-photo" src="" alt="" />
+              </div>
+              <span class="director-badge" data-i18n="incumbent"></span>
+            </div>
+            <div class="director-info">
+              <p class="eyebrow" data-i18n="directorTitle"></p>
+              <p class="director-rank" id="director-rank"></p>
+              <h2 class="director-name" id="director-name"></h2>
+              <p class="director-post" id="director-post"></p>
+              <div class="director-facts">
+                <div class="fact">
+                  <span class="fact-label" data-i18n="assumed"></span>
+                  <span class="fact-value" id="director-assumed"></span>
+                </div>
+                <div class="fact">
+                  <span class="fact-label" data-i18n="inOffice"></span>
+                  <span class="fact-value" id="director-inoffice"></span>
+                </div>
+                <div class="fact">
+                  <span class="fact-label" data-i18n="directorNo"></span>
+                  <span class="fact-value" id="director-ordinal"></span>
+                </div>
+              </div>
+              <div class="director-actions">
+                <button class="chip-btn" id="director-predecessor"></button>
+                <button class="primary-btn" id="director-chronicle">
+                  <span data-i18n="viewChronicle"></span>
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ============ DIRECTOR PROFILE OVERLAY ============ -->
+      <div class="profile hidden" id="profile" aria-hidden="true">
+        <div class="profile-backdrop" id="profile-backdrop"></div>
+        <div class="profile-panel" id="profile-panel">
+          <button class="icon-btn profile-close" id="profile-close" aria-label="Close">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+          <button class="round-btn profile-nav profile-nav--prev" id="profile-prev" aria-label="Previous director">
+            <svg viewBox="0 0 24 24"><path d="M15 6 9 12l6 6"/></svg>
+          </button>
+          <button class="round-btn profile-nav profile-nav--next" id="profile-next" aria-label="Next director">
+            <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+          </button>
+
+          <div class="profile-body" id="profile-body">
+            <div class="profile-portrait">
+              <span class="profile-ordinal" id="profile-ordinal"></span>
+              <div class="profile-frame"><img id="profile-photo" src="" alt="" /></div>
+            </div>
+            <div class="profile-info">
+              <p class="eyebrow" id="profile-kicker"></p>
+              <span class="tag" id="profile-tag"></span>
+              <p class="profile-rank" id="profile-rank"></p>
+              <h2 class="profile-name" id="profile-name"></h2>
+              <p class="profile-post" id="profile-post"></p>
+              <div class="profile-facts">
+                <div class="fact"><span class="fact-label" data-i18n="appointment"></span><span class="fact-value" id="profile-appt"></span></div>
+                <div class="fact"><span class="fact-label" data-i18n="serviceNo"></span><span class="fact-value" id="profile-svc"></span></div>
+                <div class="fact fact--wide"><span class="fact-label" data-i18n="tenure"></span><span class="fact-value" id="profile-tenure"></span></div>
+                <div class="fact"><span class="fact-label" data-i18n="duration"></span><span class="fact-value" id="profile-duration"></span></div>
+              </div>
+              <div class="profile-succession" id="profile-succession"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IDLE OVERLAY -->
+      <div class="idle-overlay hidden" id="idle-overlay">
+        <span data-i18n="idleReturnNote"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="data/content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
