@@ -14,7 +14,7 @@ var DP_CONTENT = {
     touchToBegin: 'Touch to begin',
 
     menuBrief: 'The Directorate',
-    menuBriefSub: 'Mandate, role and history',
+    menuBriefSub: 'Who we are and our responsibilities',
     menuChronicle: 'Chronicle of Directors',
     menuChronicleSub: 'Every director, in order of succession',
     menuDirector: 'The Director',
@@ -46,26 +46,48 @@ var DP_CONTENT = {
 
   /* ----------------------------------------------------------
      BRIEF ON THE DIRECTORATE
-     DRAFT — replace these paragraphs with the approved text from
-     "BRIEF ON THE DIRECTORATE OF PROCUREMENT.docx". One string
-     per page; each page is shown on its own on the kiosk.
+     Source: "BRIEF ON THE DIRECTORATE OF PROCUREMENT.docx" — one
+     page per section of the brief. The wording is the brief's own;
+     the structure diagram on page one is drawn from its paragraph.
      ---------------------------------------------------------- */
+  briefFacts: [
+    { label: 'Established', value: '6 August 2015' },
+    { label: 'Under', value: 'Public Procurement Act 2007' }
+  ],
   brief: [
     {
       heading: 'Who We Are',
-      text: 'The Directorate of Procurement is a directorate of the Office of the Chief of Army Staff, Army Headquarters, Abuja. It is the Nigerian Army’s focal point for procurement, charged with sourcing the equipment, stores, works and services the Army needs to train, fight and sustain itself.'
+      paragraphs: [
+        'The Directorate of Procurement (Army) was established on 6 Aug 15 in accordance with the provisions of the Public Procurement Act (PPA) 2007. It operates under the auspices of the Office of the COAS in liaison with AHQ DAPP and AHQ DOAL. The Directorate also serves as the Secretariat for the NA Procurement Planning Committee (PPC) and takes an active part in the preparation and implementation of the NA Budget.',
+        'Principally, the Directorate is headed by the Director of Procurement (D Proc) and organized into 3 main cells and 3 supporting cells namely: Hard Procurement, Soft Procurement and Army Tenders Board/Works & Services cells all headed by Deputy Directors (DDs). The supporting cells include; Finance, Legal and Compliance cells overseen by Assistant Directors (ADs).'
+      ],
+      structure: {
+        head: 'Director of Procurement',
+        headShort: 'D Proc',
+        groups: [
+          { label: 'Main Cells', note: 'Headed by Deputy Directors', cells: ['Hard Procurement', 'Soft Procurement', 'Army Tenders Board / Works & Services'] },
+          { label: 'Supporting Cells', note: 'Overseen by Assistant Directors', cells: ['Finance', 'Legal', 'Compliance'] }
+        ]
+      }
     },
     {
-      heading: 'Our Mandate',
-      text: 'The Directorate plans and manages the Army’s procurement activities in line with the Public Procurement Act and extant Armed Forces regulations, ensuring that every requirement is met with transparency, value for money and timeliness.'
-    },
-    {
-      heading: 'Our Role',
-      text: 'Working closely with the Corps, Directorates and Formations of the Nigerian Army, the Directorate translates operational requirements into contracts, supervises their execution and safeguards the quality of what is delivered to troops in the field.'
-    },
-    {
-      heading: 'Our Legacy',
-      text: 'Since its establishment, the Directorate has been led by a succession of distinguished officers whose stewardship is recorded in this chronicle. Each has built on the work of those before, strengthening the systems that keep the Nigerian Army equipped and ready.'
+      heading: 'Our Responsibilities',
+      paragraphs: [
+        'The Directorate of Procurement is saddled with the responsibility of administering and handling all procurement activities for the NA. The Directorate also enforces procedures/requirements for award, evaluation, monitoring and termination of contracts approved by the PPC. The core responsibilities of the Directorate as dictated by its establishment order are as follows:'
+      ],
+      items: [
+        'Act as Secretariat of the NA PPC with the D Proc as the Secretary.',
+        'Offer sound advice to the COAS on all procurement matters involving the NA.',
+        'Formulate policy guidelines and coordinate action on all procurement matters in liaison with AHQ DAPP, AHQ DOAL and HQ NAFC.',
+        'Handles all NA procurement activities in liaison with the benefitting entity. This is important to justify the needs assessment.',
+        'Determine the lots of various jobs, their descriptions, cost and specifications and Bill of Quantity (BOQ).',
+        'Furnish the COAS with details of capital projects, procurement plans for each year and procurement reports.',
+        'Liaise with DHQ, MOD and any other entity on NA procurement matters.',
+        'Opening and managing of NA Procurement Portal, when established.',
+        'Register intending contractors with the NA.',
+        'Coordinate all pre-shipment inspections in close liaison with AHQ DAPP and DOAL.',
+        'Any other function as may be directed by the COAS.'
+      ]
     }
   ],
 

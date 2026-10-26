@@ -193,11 +193,18 @@
       b.addEventListener('click', function () { renderBriefPage(i); });
       li.appendChild(b);
       el.briefIndex.appendChild(li);
-      el.briefProgress.appendChild(make('span'));
     });
-    el.briefPrev.addEventListener('click', function () { renderBriefPage(state.briefIndex - 1); });
-    el.briefNext.addEventListener('click', function () { renderBriefPage(state.briefIndex + 1); });
+    (DP_CONTENT.briefFacts || []).forEach(function (f) {
+      el.briefFacts.appendChild(textNode('dt', null, f.label));
+      el.briefFacts.appendChild(textNode('dd', null, f.value));
+    });
     addSwipe(el.screens.brief, function (dir) { renderBriefPage(state.briefIndex + dir); });
+  }
+
+  function textNode(tag, cls, str) {
+    var n = make(tag, cls);
+    n.textContent = str;
+    return n;
   }
 
   function renderBriefPage(i) {
@@ -205,14 +212,57 @@
     if (i === null) i = 0;
     if (i < 0 || i >= pages.length) return;
     state.briefIndex = i;
-    el.briefPageNum.textContent = pad2(i + 1);
-    el.briefHeading.textContent = pages[i].heading;
-    el.briefText.textContent = pages[i].text;
-    restartAnimation(el.briefPage, 'enter');
+    var page = pages[i];
+    var root = el.briefPage;
+    root.innerHTML = '';
+
+    var head = make('div', 'brief-head');
+    head.appendChild(textNode('span', 'brief-page-num', pad2(i + 1)));
+    head.appendChild(textNode('h3', 'brief-heading', page.heading));
+    root.appendChild(head);
+
+    (page.paragraphs || []).forEach(function (p, n) {
+      root.appendChild(textNode('p', 'brief-text' + (n === 0 ? ' brief-text--lead' : ''), p));
+    });
+    if (page.structure) root.appendChild(buildStructure(page.structure));
+    if (page.items) {
+      var ol = make('ol', 'brief-list');
+      page.items.forEach(function (item, n) {
+        var li = make('li');
+        li.style.animationDelay = (0.15 + n * 0.04) + 's';
+        li.appendChild(textNode('span', 'brief-list-mark', String.fromCharCode(97 + n)));
+        li.appendChild(textNode('span', 'brief-list-text', item));
+        ol.appendChild(li);
+      });
+      root.appendChild(ol);
+    }
+
+    root.scrollTop = 0;
+    restartAnimation(root, 'enter');
     Array.prototype.forEach.call(el.briefIndex.children, function (li, n) { li.classList.toggle('active', n === i); });
-    Array.prototype.forEach.call(el.briefProgress.children, function (s, n) { s.classList.toggle('active', n === i); });
-    el.briefPrev.disabled = i === 0;
-    el.briefNext.disabled = i === pages.length - 1;
+  }
+
+  // Organisation of the directorate: D Proc over its main and supporting cells.
+  function buildStructure(s) {
+    var wrap = make('div', 'org');
+    var top = make('div', 'org-head');
+    top.appendChild(textNode('span', 'org-head-short', s.headShort));
+    top.appendChild(textNode('span', 'org-head-name', s.head));
+    wrap.appendChild(top);
+    var groups = make('div', 'org-groups');
+    s.groups.forEach(function (g) {
+      var col = make('div', 'org-group');
+      var cap = make('div', 'org-group-cap');
+      cap.appendChild(textNode('span', 'org-group-label', g.label));
+      cap.appendChild(textNode('span', 'org-group-note', g.note));
+      col.appendChild(cap);
+      var cells = make('div', 'org-cells');
+      g.cells.forEach(function (c) { cells.appendChild(textNode('span', 'org-cell', c)); });
+      col.appendChild(cells);
+      groups.appendChild(col);
+    });
+    wrap.appendChild(groups);
+    return wrap;
   }
 
   /* ---------------- chronicle ---------------- */
@@ -519,12 +569,7 @@
 
     el.briefIndex = document.getElementById('brief-index');
     el.briefPage = document.getElementById('brief-page');
-    el.briefPageNum = document.getElementById('brief-page-num');
-    el.briefHeading = document.getElementById('brief-heading');
-    el.briefText = document.getElementById('brief-text');
-    el.briefProgress = document.getElementById('brief-progress');
-    el.briefPrev = document.getElementById('brief-prev');
-    el.briefNext = document.getElementById('brief-next');
+    el.briefFacts = document.getElementById('brief-facts');
 
     el.chronYears = document.getElementById('chron-years');
     el.chronCount = document.getElementById('chron-count');

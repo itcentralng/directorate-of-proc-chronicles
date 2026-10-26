@@ -9,7 +9,8 @@ offline-ready web app (no build step, no internet needed) designed for a
 
 - **Welcome**: a slowly drifting wall of every director's portrait. Any touch begins.
 - **Home**: three sections — The Directorate, Chronicle of Directors, The Director.
-- **The Directorate**: the brief on the directorate, one page at a time (tap, swipe or arrows).
+- **The Directorate**: the official brief in its two sections, Who We Are (with a
+  diagram of the directorate's cells) and Our Responsibilities.
 - **Chronicle of Directors**: every director in order of succession on a
   horizontal timeline that drifts on its own, with a "line of succession" bar
   whose segments are sized to each tenure. Tap a portrait or segment for the
@@ -31,7 +32,8 @@ For development, open `index.html` in any modern browser.
 
 Everything lives in `data/content.js`:
 
-- `brief`: the pages of the brief (heading and text).
+- `brief`: the two pages of the brief (paragraphs, plus the structure diagram
+  or the list of responsibilities), and `briefFacts` shown beside them.
 - `directors`: the roll of directors, oldest first. Dates are `YYYY-MM-DD`,
   `to: null` marks the incumbent, and `acting: true` shows the appointment as
   Acting Director.
