@@ -138,11 +138,76 @@
     });
   }
 
+  /* ---------------- background music ---------------- */
+  // A looping music bed under the whole app. Drop the file at AMBIENT_SRC to
+  // switch it on — until then the sound button stays hidden and nothing plays.
+  // It sits a little lower on the welcome screen so it invites rather than
+  // fills the gallery, and fades whenever its level changes.
+  var AMBIENT_SRC = 'assets/audio/ambient.mp3';
+  var AMBIENT_VOLUME = 0.35;
+  var AMBIENT_ATTRACT_VOLUME = 0.18;
+  var AMBIENT_FADE_MS = 1200;
+  var ambient = null;
+  var ambientMuted = false;
+  var ambientFadeRaf = null;
+
+  function ambientTarget() {
+    if (ambientMuted) return 0;
+    return state.screen === 'attract' ? AMBIENT_ATTRACT_VOLUME : AMBIENT_VOLUME;
+  }
+
+  function startAmbient() {
+    if (ambient) return;
+    var audio = new Audio(AMBIENT_SRC);
+    audio.loop = true;
+    audio.volume = 0;
+    ambient = audio;
+    // A missing file just leaves the kiosk silent, with no sound button.
+    audio.addEventListener('error', function () { ambient = null; el.btnSound.classList.add('hidden'); });
+    audio.addEventListener('playing', function () { el.btnSound.classList.remove('hidden'); });
+    playAmbient();
+  }
+
+  function playAmbient() {
+    if (!ambient || ambientMuted) return;
+    ambient.play().then(function () {
+      fadeAmbient(ambientTarget());
+    }).catch(function () {
+      // Autoplay was blocked: try again on the visitor's first touch.
+      document.addEventListener('pointerdown', playAmbient, { once: true });
+    });
+  }
+
+  function fadeAmbient(target, onDone) {
+    if (!ambient) return;
+    if (ambientFadeRaf) cancelAnimationFrame(ambientFadeRaf);
+    var audio = ambient, from = audio.volume, t0 = null;
+    function step(now) {
+      if (t0 === null) t0 = now;
+      var k = Math.min(1, (now - t0) / AMBIENT_FADE_MS);
+      audio.volume = from + (target - from) * k;
+      if (k < 1) { ambientFadeRaf = requestAnimationFrame(step); return; }
+      ambientFadeRaf = null;
+      if (onDone) onDone();
+    }
+    ambientFadeRaf = requestAnimationFrame(step);
+  }
+
+  function toggleAmbient() {
+    ambientMuted = !ambientMuted;
+    el.btnSound.classList.toggle('is-muted', ambientMuted);
+    el.btnSound.setAttribute('aria-pressed', String(ambientMuted));
+    el.btnSound.setAttribute('aria-label', ambientMuted ? 'Play background music' : 'Mute background music');
+    if (ambientMuted) fadeAmbient(0, function () { if (ambient && ambientMuted) ambient.pause(); });
+    else playAmbient();
+  }
+
   /* ---------------- navigation ---------------- */
   function showScreen(id) {
     closeProfile();
     stopAutoScroll();
     state.screen = id;
+    if (ambient && !ambient.paused) fadeAmbient(ambientTarget());
     Object.keys(el.screens).forEach(function (key) {
       el.screens[key].classList.toggle('active', key === id);
     });
@@ -707,6 +772,8 @@
     el.screens.attract.addEventListener('click', goHome);
     document.getElementById('btn-home').addEventListener('click', goHome);
     document.getElementById('btn-close').addEventListener('click', function () { window.close(); });
+    el.btnSound = document.getElementById('btn-sound');
+    el.btnSound.addEventListener('click', toggleAmbient);
     document.querySelectorAll('[data-nav]').forEach(function (btn) {
       btn.addEventListener('click', function () { showScreen(btn.getAttribute('data-nav')); });
     });
@@ -741,6 +808,7 @@
 
     window.addEventListener('resize', scaleStage);
     scaleStage();
+    startAmbient();
   }
 
   document.addEventListener('DOMContentLoaded', init);

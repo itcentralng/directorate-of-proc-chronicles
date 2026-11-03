@@ -46,6 +46,14 @@ Everything lives in `data/content.js`:
 When a new director is appointed, set the outgoing director's `to` date and
 add the new director at the end with `to: null`.
 
+## Background music
+
+Save the music as `assets/audio/ambient.mp3` and it plays on a loop: softly
+on the welcome screen, a little louder once a visitor begins. A speaker
+button in the top bar mutes it. If the file is missing the kiosk simply stays
+silent. `run.bat` lets Edge start the music without waiting for a touch.
+Levels are set at the top of the background-music section of `script.js`.
+
 ## Portraits
 
 `directors/` holds the original portraits as supplied. The app uses the
