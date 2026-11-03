@@ -647,6 +647,107 @@ svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width:
 }
 .profile-succession { display: flex; gap: 18px; margin-top: 40px; }
 
+.ghost-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 21px 32px; border-radius: 99px;
+  font-family: var(--font-display); font-weight: 500; font-size: 21px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ivory); border: 1px solid rgba(214, 180, 104, 0.45);
+}
+.ghost-btn svg { width: 22px; height: 22px; }
+.ghost-btn:active { background: var(--gold-faint); border-color: var(--gold); }
+.primary-btn--sm { padding: 0 30px; font-size: 18px; align-self: stretch; }
+.director-predecessor { align-self: flex-start; margin-top: 22px; }
+
+/* ============ BIOGRAPHY ============ */
+.bio-wrap { flex: 1; display: grid; grid-template-columns: 420px 1fr; gap: 70px; padding: 34px 80px 40px; min-height: 0; }
+.bio-aside { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.back-link {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px 10px 12px; margin-bottom: 8px; border-radius: 99px;
+  font-family: var(--font-display); font-size: 17px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ivory-dim); border: 1px solid var(--gold-line);
+}
+.back-link svg { width: 20px; height: 20px; }
+.back-link:active { background: var(--gold-faint); }
+.bio-frame {
+  width: 100%; height: 430px; flex-shrink: 0;
+  border-radius: 20px; overflow: hidden;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 8px rgba(214, 180, 104, 0.08), 0 30px 70px rgba(0, 0, 0, 0.5);
+}
+.bio-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; }
+.bio-rank { font-family: var(--font-display); font-weight: 500; font-size: 20px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-top: 16px; }
+.bio-name { font-family: var(--font-serif); font-weight: 700; font-size: 58px; line-height: 1; color: var(--ivory); }
+.bio-fullname { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: var(--ivory-dim); }
+.bio-facts { display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--gold-line); }
+.bio-facts dt { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); padding-top: 5px; }
+.bio-facts dd { font-family: var(--font-body); font-weight: 600; font-size: 21px; line-height: 1.25; color: var(--ivory); }
+
+.bio-main { display: flex; flex-direction: column; gap: 24px; min-width: 0; min-height: 0; }
+.bio-head { display: flex; flex-direction: column; gap: 14px; flex-shrink: 0; }
+.bio-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+.bio-tab {
+  padding: 14px 26px; border-radius: 99px;
+  font-family: var(--font-display); font-weight: 500; font-size: 19px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ivory-dim); background: rgba(244, 238, 223, 0.04); border: 1px solid var(--gold-line);
+  transition: background .3s, color .3s, border-color .3s;
+}
+.bio-tab.active { color: var(--green-950); background: var(--gold); border-color: var(--gold); }
+.bio-panel {
+  flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 16px;
+  padding: 28px 36px; border-radius: 24px;
+  background: linear-gradient(160deg, rgba(36, 82, 58, 0.35), rgba(10, 24, 17, 0.6));
+  border: 1px solid var(--gold-line);
+  overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
+}
+.bio-panel::-webkit-scrollbar { display: none; }
+.bio-panel.enter { animation: pageIn .55s var(--ease) both; }
+.bio-intro { font-family: var(--font-body); font-style: italic; font-size: 25px; line-height: 1.4; color: var(--ivory-dim); }
+.bio-text { font-family: var(--font-body); font-size: 28px; line-height: 1.55; color: var(--ivory); }
+.bio-note {
+  display: flex; align-items: baseline; gap: 22px; margin-top: auto;
+  padding: 20px 26px; border-radius: 16px;
+  background: var(--gold-faint); border: 1px solid var(--gold-line);
+}
+.bio-note-label { font-family: var(--font-display); font-weight: 600; font-size: 17px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); flex-shrink: 0; }
+.bio-note-text { font-family: var(--font-body); font-size: 25px; color: var(--ivory); }
+
+.bio-list { list-style: none; display: grid; gap: 12px 20px; }
+.bio-list li {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 12px 18px 12px 12px; border-radius: 14px;
+  background: rgba(244, 238, 223, 0.035); border: 1px solid rgba(214, 180, 104, 0.14);
+  animation: cardIn .55s var(--ease) both;
+}
+.bio-list-mark {
+  min-width: 38px; height: 38px; flex-shrink: 0; border-radius: 99px;
+  display: grid; place-items: center; padding: 0 6px;
+  font-family: var(--font-serif); font-weight: 600; font-size: 17px;
+  color: var(--gold); border: 1px solid var(--gold-line);
+}
+.bio-list-text { font-family: var(--font-body); font-size: 22px; line-height: 1.3; color: var(--ivory); padding-top: 5px; }
+
+/* career: read down the first column, then the second */
+.bio-list--career { display: block; columns: 2; column-gap: 20px; }
+.bio-list--career li { padding: 8px 16px 8px 10px; margin-bottom: 9px; break-inside: avoid; }
+.bio-list--career .bio-list-mark { min-width: 34px; height: 34px; font-size: 15px; }
+.bio-list--career .bio-list-text { font-size: 20px; padding-top: 4px; }
+.bio-list li.is-highlight { background: var(--gold-faint); border-color: rgba(214, 180, 104, 0.6); }
+.bio-list li.is-highlight .bio-list-mark { color: var(--green-950); background: var(--gold); border-color: var(--gold); }
+
+.bio-list--cards { grid-template-columns: repeat(3, 1fr); }
+.bio-list--cards li { flex-direction: column; gap: 12px; padding: 20px 22px; min-height: 150px; }
+.bio-list--cards .bio-list-text { font-size: 24px; padding-top: 0; }
+
+.bio-list--badges { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.bio-list--badges li {
+  flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px;
+  min-height: 200px; padding: 26px;
+  background: radial-gradient(circle at 50% 0%, rgba(214, 180, 104, 0.14), rgba(244, 238, 223, 0.03) 70%);
+}
+.bio-list--badges .bio-list-mark { width: 60px; height: 60px; font-size: 28px; color: var(--green-950); background: var(--gold); border-color: var(--gold); }
+.bio-list--badges .bio-list-text { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: 0.08em; text-transform: uppercase; padding-top: 0; }
+
 /* ============ IDLE OVERLAY ============ */
 .idle-overlay {
   position: absolute; inset: 0; z-index: 300;

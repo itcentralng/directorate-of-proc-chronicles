@@ -38,6 +38,8 @@ var DP_CONTENT = {
     precededBy: 'Preceded by',
     succeededBy: 'Succeeded by',
     viewChronicle: 'View the full chronicle',
+    readBiography: 'Read biography',
+    biography: 'Biography',
     succession: 'Line of succession',
     tapPortrait: 'Tap a portrait to learn more',
     back: 'Back',
@@ -163,7 +165,94 @@ var DP_CONTENT = {
       name: 'SY Yakasai', serviceNo: '', acting: false,
       postNominals: 'FSS MSS DSS FCM CM psc(+) fwc(+) nswc NAOTC MSc MA AMNIM',
       from: '2025-10-30', to: null,
-      photo: 'assets/portraits/maj-gen-sy-yakasai.jpg'
+      photo: 'assets/portraits/maj-gen-sy-yakasai.jpg',
+      /* Source: "MAJ GEN SY YAKASAI CV.docx" — wording is the CV's own. */
+      bio: {
+        fullName: 'Sadisu Yahaya Yakasai',
+        facts: [
+          { label: 'Born', value: '26 June 1974' },
+          { label: 'Hometown', value: 'Kano Municipal, Kano State' },
+          { label: 'Commissioned', value: '1997 · 44 Regular Course' },
+          { label: 'Corps', value: 'Nigerian Army Infantry Corps' }
+        ],
+        sections: [
+          {
+            title: 'Profile',
+            paragraphs: [
+              'Major General SADISU YAHAYA YAKASAI was born on 26 June 1974 in Kano Municipal Local Government Area of Kano State. He is a recipient of the Forces Service Star, Meritorious Service Star, Distinguished Service Star, Command Medal, Pass Staff Course +, Fellow War College +, National Security and War Course, Master of Science, Master of Arts, Associate Member National Institute of Management.',
+              'He was admitted into the Nigerian Defence Academy Kaduna in 1992 as a member of 44 Regular Course where he bagged a Bachelor Degree in Mechanical Engineering and was commissioned into the Nigerian Army as a Second Lieutenant in 1997. He is of the Nigerian Army Infantry Corps.'
+            ],
+            aside: { label: 'Hobbies', text: 'His hobbies include reading, watching football and playing snooker.' }
+          },
+          {
+            title: 'Appointments',
+            layout: 'career',
+            intro: 'The Director has held various commands and appointments in different units, formations and establishments in the Nigerian Army. Some of which include;',
+            items: [
+              'Platoon Comd at 195 Bn at NIBATT & UNAMSIC.',
+              'ADC to Hon Minister of Defence.',
+              'Staff Officer Grade II at Nigerian Defence College.',
+              'Commanding Officer at AHQ Trg Team Cadet Bn.',
+              'Commanding Officer 2 Bn.',
+              'ADC to Chief of Army Staff.',
+              'Senior Instructor Tactics Wing at Nigerian Army School of Infantry.',
+              'Directing Staff at Armed Forces Command and Staff College, Jaji.',
+              'Deputy Director Logistics AHQ Operations Monitoring Team.',
+              'Military Assistant to the Hon Minister of Interior.',
+              'Deputy Director Training and Exercise Analysis at the Dept of Army Transformation and Innovation.',
+              'Directing Staff at the prestigious Army War College of Nigeria.',
+              'Chief of Staff, 7 Division/Sector 1 Joint Task Force Northeast Operation HADIN KAI.',
+              'Comd 16 Bde NA and South South Sect 2 Op Delta Safe.',
+              'Deputy Director Documentation at AHQ Department of Personnel Management.',
+              'Executive Director Operations at Nigerian Army Welfare Limited by Guarantee (NAWLG).',
+              { text: 'The Acting Director of Procurement at Army Headquarters Directorate of Procurement.', highlight: true },
+              { text: 'Presently, the Director Procurement at Army Headquarters Directorate of Procurement.', highlight: true }
+            ]
+          },
+          {
+            title: 'Courses',
+            layout: 'cards',
+            intro: 'Major General SY Yakasai has attended several courses and seminars in his military career, notably among them include;',
+            items: [
+              'Young Officer’s Course Infantry.',
+              'Mortar Platoon Commander’s Course.',
+              'Armour Fighting Vehicle Course.',
+              'Junior Staff Course.',
+              'Company Commander’s Course.',
+              'Senior Staff Course.',
+              'Battalion Commander’s Course.',
+              'Amphibious Staff Officers Course.',
+              'Notably Security and War Course Pakistan.'
+            ]
+          },
+          {
+            title: 'Missions & Operations',
+            layout: 'badges',
+            intro: 'Major General Yakasai also participated in missions and operations within and outside the Country, some of which include;',
+            items: [
+              'UNITED NATIONS MISSION in Sierra Leone.',
+              'Op HARMONY.',
+              'Op SHARAN DAJI.',
+              'Op HADIN KAI.',
+              'Op DESERT SANITY.',
+              'Op DELTA SAFE.'
+            ]
+          },
+          {
+            title: 'Honours & Medals',
+            layout: 'cards',
+            intro: 'Major General Yakasai has also bagged the following Medals and Honours to his credit, these include;',
+            items: [
+              'The United Nations Mission in Sierra Leone Medal.',
+              'Command Medal.',
+              'Associate Member Nigerian Institute of Management.',
+              'Distinguished Fellow War College Dagger.',
+              'Master of Art Degree on Conflict, Security and Development from Bradford University in United Kingdom.',
+              'Master of Science Degree in National Security and War Studies from National Defence University Pakistan.'
+            ]
+          }
+        ]
+      }
     }
   ]
 };

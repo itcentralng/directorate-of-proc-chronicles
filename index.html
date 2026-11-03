@@ -172,12 +172,40 @@
                 </div>
               </div>
               <div class="director-actions">
-                <button class="chip-btn" id="director-predecessor"></button>
-                <button class="primary-btn" id="director-chronicle">
+                <button class="primary-btn" id="director-bio">
+                  <svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h13v15.5" /><path d="M6 4v16h13" /><path d="M8 8h8M8 12h6" /></svg>
+                  <span data-i18n="readBiography"></span>
+                </button>
+                <button class="ghost-btn" id="director-chronicle">
                   <span data-i18n="viewChronicle"></span>
                   <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </button>
               </div>
+              <button class="chip-btn director-predecessor" id="director-predecessor"></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- BIOGRAPHY -->
+        <section class="screen" id="screen-bio">
+          <div class="bio-wrap">
+            <aside class="bio-aside">
+              <button class="back-link" id="bio-back">
+                <svg viewBox="0 0 24 24"><path d="M15 6 9 12l6 6"/></svg>
+                <span data-i18n="back"></span>
+              </button>
+              <div class="bio-frame"><img id="bio-photo" src="" alt="" /></div>
+              <p class="bio-rank" id="bio-rank"></p>
+              <h2 class="bio-name" id="bio-name"></h2>
+              <p class="bio-fullname" id="bio-fullname"></p>
+              <dl class="bio-facts" id="bio-facts"></dl>
+            </aside>
+            <div class="bio-main">
+              <div class="bio-head">
+                <p class="eyebrow" data-i18n="biography"></p>
+                <nav class="bio-tabs" id="bio-tabs"></nav>
+              </div>
+              <div class="bio-panel" id="bio-panel"></div>
             </div>
           </div>
         </section>

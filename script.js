@@ -23,7 +23,10 @@
   var state = {
     screen: 'attract',
     briefIndex: 0,
-    profileIndex: null
+    profileIndex: null,
+    bioIndex: null,
+    bioTab: 0,
+    bioReturn: null
   };
 
   var el = {}; // populated in init()
@@ -455,6 +458,79 @@
       el.directorPredecessor.addEventListener('click', function () { openProfile(CURRENT_INDEX - 1); });
     }
     el.directorChronicle.addEventListener('click', function () { showScreen('chronicle'); });
+    if (d.bio) el.directorBio.addEventListener('click', function () { openBio(CURRENT_INDEX); });
+    else el.directorBio.classList.add('hidden');
+  }
+
+  /* ---------------- biography ---------------- */
+  function openBio(i) {
+    var d = DIRECTORS[i];
+    if (!d.bio) return;
+    state.bioReturn = state.screen;
+    state.bioIndex = i;
+
+    el.bioPhoto.src = d.photo;
+    el.bioPhoto.alt = fullName(d);
+    el.bioRank.textContent = d.rank;
+    el.bioName.textContent = d.name;
+    el.bioFullname.textContent = d.bio.fullName || '';
+    el.bioFacts.innerHTML = '';
+    (d.bio.facts || []).forEach(function (f) {
+      el.bioFacts.appendChild(textNode('dt', null, f.label));
+      el.bioFacts.appendChild(textNode('dd', null, f.value));
+    });
+
+    el.bioTabs.innerHTML = '';
+    d.bio.sections.forEach(function (s, n) {
+      var b = textNode('button', 'bio-tab', s.title);
+      b.addEventListener('click', function () { renderBioTab(n); });
+      el.bioTabs.appendChild(b);
+    });
+
+    renderBioTab(0);
+    showScreen('bio');
+  }
+
+  function closeBio() {
+    var back = state.bioReturn || 'director';
+    showScreen(back);
+    if (back === 'chronicle') openProfile(state.bioIndex);
+  }
+
+  function renderBioTab(n) {
+    var sections = DIRECTORS[state.bioIndex].bio.sections;
+    if (n < 0 || n >= sections.length) return;
+    state.bioTab = n;
+    var s = sections[n];
+    var root = el.bioPanel;
+    root.innerHTML = '';
+
+    if (s.intro) root.appendChild(textNode('p', 'bio-intro', s.intro));
+    (s.paragraphs || []).forEach(function (p) { root.appendChild(textNode('p', 'bio-text', p)); });
+    if (s.aside) {
+      var aside = make('div', 'bio-note');
+      aside.appendChild(textNode('span', 'bio-note-label', s.aside.label));
+      aside.appendChild(textNode('p', 'bio-note-text', s.aside.text));
+      root.appendChild(aside);
+    }
+
+    if (s.items) {
+      var layout = s.layout || 'cards';
+      var list = make('ol', 'bio-list bio-list--' + layout);
+      s.items.forEach(function (item, k) {
+        var text = typeof item === 'string' ? item : item.text;
+        var li = make('li', item.highlight ? 'is-highlight' : null);
+        li.style.animationDelay = (0.1 + k * 0.03) + 's';
+        li.appendChild(textNode('span', 'bio-list-mark', layout === 'badges' ? '★' : pad2(k + 1)));
+        li.appendChild(textNode('span', 'bio-list-text', text));
+        list.appendChild(li);
+      });
+      root.appendChild(list);
+    }
+
+    root.scrollTop = 0;
+    restartAnimation(root, 'enter');
+    Array.prototype.forEach.call(el.bioTabs.children, function (b, k) { b.classList.toggle('active', k === n); });
   }
 
   function chipContent(d, label) {
@@ -494,6 +570,11 @@
     el.profileSuccession.innerHTML = '';
     if (i > 0) el.profileSuccession.appendChild(successionChip(i - 1, t('precededBy'), -1));
     if (i < DIRECTORS.length - 1) el.profileSuccession.appendChild(successionChip(i + 1, t('succeededBy'), 1));
+    if (d.bio) {
+      var bioBtn = textNode('button', 'primary-btn primary-btn--sm', t('readBiography'));
+      bioBtn.addEventListener('click', function () { openBio(i); });
+      el.profileSuccession.appendChild(bioBtn);
+    }
 
     el.profilePrev.disabled = i === 0;
     el.profileNext.disabled = i === DIRECTORS.length - 1;
@@ -560,7 +641,8 @@
       home: document.getElementById('screen-home'),
       brief: document.getElementById('screen-brief'),
       chronicle: document.getElementById('screen-chronicle'),
-      director: document.getElementById('screen-director')
+      director: document.getElementById('screen-director'),
+      bio: document.getElementById('screen-bio')
     };
     el.attractWall = document.getElementById('attract-wall');
     el.attractYears = document.getElementById('attract-years');
@@ -586,6 +668,15 @@
     el.directorOrdinal = document.getElementById('director-ordinal');
     el.directorPredecessor = document.getElementById('director-predecessor');
     el.directorChronicle = document.getElementById('director-chronicle');
+    el.directorBio = document.getElementById('director-bio');
+
+    el.bioPhoto = document.getElementById('bio-photo');
+    el.bioRank = document.getElementById('bio-rank');
+    el.bioName = document.getElementById('bio-name');
+    el.bioFullname = document.getElementById('bio-fullname');
+    el.bioFacts = document.getElementById('bio-facts');
+    el.bioTabs = document.getElementById('bio-tabs');
+    el.bioPanel = document.getElementById('bio-panel');
 
     el.profile = document.getElementById('profile');
     el.profileBody = document.getElementById('profile-body');
@@ -625,6 +716,8 @@
     el.profilePrev.addEventListener('click', function () { openProfile(state.profileIndex - 1, -1); });
     el.profileNext.addEventListener('click', function () { openProfile(state.profileIndex + 1, 1); });
     addSwipe(document.getElementById('profile-panel'), function (dir) { openProfile(state.profileIndex + dir, dir); });
+    document.getElementById('bio-back').addEventListener('click', closeBio);
+    addSwipe(el.screens.bio, function (dir) { renderBioTab(state.bioTab + dir); });
 
     document.addEventListener('keydown', function (e) {
       if (state.profileIndex !== null) {
@@ -634,6 +727,10 @@
       } else if (state.screen === 'brief') {
         if (e.key === 'ArrowLeft') renderBriefPage(state.briefIndex - 1);
         if (e.key === 'ArrowRight') renderBriefPage(state.briefIndex + 1);
+      } else if (state.screen === 'bio') {
+        if (e.key === 'ArrowLeft') renderBioTab(state.bioTab - 1);
+        if (e.key === 'ArrowRight') renderBioTab(state.bioTab + 1);
+        if (e.key === 'Escape') closeBio();
       }
     });
 

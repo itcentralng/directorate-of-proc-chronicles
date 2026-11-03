@@ -17,6 +17,9 @@ offline-ready web app (no build step, no internet needed) designed for a
   full profile: appointment, service number, tenure, duration, and who
   preceded and succeeded them.
 - **The Director**: the incumbent, with time in office kept up to date automatically.
+- **Biography**: the director's CV in tabs (Profile, Appointments, Courses,
+  Missions & Operations, Honours & Medals), opened from The Director page or
+  from that director's chronicle profile.
 
 After 100 seconds without a touch the kiosk returns to the welcome screen.
 
@@ -36,7 +39,9 @@ Everything lives in `data/content.js`:
   or the list of responsibilities), and `briefFacts` shown beside them.
 - `directors`: the roll of directors, oldest first. Dates are `YYYY-MM-DD`,
   `to: null` marks the incumbent, and `acting: true` shows the appointment as
-  Acting Director.
+  Acting Director. A director with a `bio` gets a Read biography button;
+  `bio.sections` are its tabs, and each list section picks a `layout`
+  (`career`, `cards` or `badges`).
 
 When a new director is appointed, set the outgoing director's `to` date and
 add the new director at the end with `to: null`.
