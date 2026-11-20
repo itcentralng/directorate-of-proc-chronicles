@@ -196,7 +196,7 @@ var DP_CONTENT = {
               'Commanding Officer 2 Bn.',
               'ADC to Chief of Army Staff.',
               'Senior Instructor Tactics Wing at Nigerian Army School of Infantry.',
-              'Directing Staff at Armed Forces Command and Staff College, Jaji.',
+              'Directing Staff at Armed Forces Command and Staff College, Nigeria.',
               'Deputy Director Logistics AHQ Operations Monitoring Team.',
               'Military Assistant to the Hon Minister of Interior.',
               'Deputy Director Training and Exercise Analysis at the Dept of Army Transformation and Innovation.',
