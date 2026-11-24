@@ -16,6 +16,7 @@
   var AUTO_SCROLL_START_DELAY = 1800; // ms pause before the scroll begins, and at each end
   var AUTO_SCROLL_RESUME_DELAY = 10000; // ms of no manual scroll before auto-scroll resumes
   var AUTO_SCROLL_END_EPSILON = 2; // px tolerance for "reached the end"
+  var PROFILE_AUTOPLAY_DELAY = 10000; // ms to view each director profile before advancing
 
   var DIRECTORS = DP_CONTENT.directors;
   var CURRENT_INDEX = findCurrentIndex();
@@ -31,6 +32,7 @@
 
   var el = {}; // populated in init()
   var idleTimer = null;
+  var profileTimer = null;
   var scrollTimer = null;
   var scrollRaf = null;
   var scrollDir = 1; // 1 = scrolling right, -1 = scrolling left
@@ -531,6 +533,7 @@
   function openBio(i) {
     var d = DIRECTORS[i];
     if (!d.bio) return;
+    stopProfileAutoplay();
     state.bioReturn = state.screen;
     state.bioIndex = i;
 
@@ -651,6 +654,21 @@
 
     if (state.screen === 'chronicle') scrollToCard(i);
     resetIdleTimer();
+    startProfileAutoplay();
+  }
+
+  function startProfileAutoplay() {
+    stopProfileAutoplay();
+    if (state.profileIndex === null) return;
+    profileTimer = setTimeout(function () {
+      profileTimer = null;
+      var nextIndex = (state.profileIndex + 1) % DIRECTORS.length;
+      openProfile(nextIndex, 1);
+    }, PROFILE_AUTOPLAY_DELAY);
+  }
+
+  function stopProfileAutoplay() {
+    if (profileTimer) { clearTimeout(profileTimer); profileTimer = null; }
   }
 
   function successionChip(i, label, dir) {
@@ -661,6 +679,7 @@
   }
 
   function closeProfile() {
+    stopProfileAutoplay();
     if (state.profileIndex === null) return;
     state.profileIndex = null;
     el.profile.classList.add('hidden');
@@ -685,7 +704,7 @@
   function resetIdleTimer() {
     if (idleTimer) clearTimeout(idleTimer);
     idleTimer = null;
-    if (state.screen === 'attract') return;
+    if (state.screen === 'attract' || state.screen === 'chronicle') return;
     idleTimer = setTimeout(triggerIdleReset, IDLE_TIMEOUT_MS);
   }
 

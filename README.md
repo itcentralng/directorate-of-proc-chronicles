@@ -21,7 +21,10 @@ offline-ready web app (no build step, no internet needed) designed for a
   Missions & Operations, Honours & Medals), opened from The Director page or
   from that director's chronicle profile.
 
-After 100 seconds without a touch the kiosk returns to the welcome screen.
+After 100 seconds without a touch the kiosk returns to the welcome screen,
+except while the Chronicle of Directors is open, where the timeline keeps
+scrolling. Opening a director's profile automatically moves on to the next
+director every 20 seconds, looping back to the first after the last.
 
 ## Running on the kiosk
 
